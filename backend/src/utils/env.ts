@@ -10,6 +10,9 @@ const envSchema = z.object({
   CLIENT_URL: z.string().nonempty("CLIENT_URL is required"),
   NODE_ENV: z.enum(["development", "production"]).default("development"),
   OPTION: z.string(),
+  PINECONE_API_KEY: z.string().nonempty("PINECONE_API_KEY is required"),
+  PINECONE_INDEX_NAME: z.string().nonempty("PINECONE_INDEX_NAME is required"),
+  HUGGINGFACE_API_KEY: z.string().nonempty("HUGGINGFACE_API_KEY is required"),
 });
 
 function createEnv(env: NodeJS.ProcessEnv) {
