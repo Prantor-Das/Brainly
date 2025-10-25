@@ -6,6 +6,7 @@ import { connectDB } from "./utils/db.js";
 import { userRouter } from "./routes/user.routes.js";
 import { envKeys } from "./utils/envKeys.js";
 import { contentRouter } from "./routes/content.routes.js";
+import { brainRouter } from "./routes/brain.routes.js";
 
 const app = express();
 app.use(cookieParser());
@@ -23,6 +24,7 @@ const PORT: number = envKeys.PORT;
 
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/content", contentRouter); 
+app.use("/api/v1/brain", brainRouter); 
 
 app.get("/", (req, res) => {
   res.send("Hello, World!");

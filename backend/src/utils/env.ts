@@ -8,6 +8,8 @@ const envSchema = z.object({
   JWT_SECRET: z.string().nonempty("JWT_SECRET is required"),
   MONGO_URL: z.string().nonempty("MONGO_URL is required"),
   CLIENT_URL: z.string().nonempty("CLIENT_URL is required"),
+  NODE_ENV: z.enum(["development", "production"]).default("development"),
+  OPTION: z.string(),
 });
 
 function createEnv(env: NodeJS.ProcessEnv) {

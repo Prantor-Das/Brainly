@@ -5,4 +5,6 @@ export const envKeys = {
     JWT_SECRET: env.JWT_SECRET,
     MONGO_URL: env.MONGO_URL,
     CLIENT_URL: env.CLIENT_URL,
+    NODE_ENV: env.NODE_ENV,
+    OPTION: env.OPTION
 };

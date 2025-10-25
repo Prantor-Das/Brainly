@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
 import { Content } from "../models/content.models.js";
-import { contentSchema } from "../validations/content.js";
+import { contentSchema, updateContentSchema } from "../validations/content.js";
 import { Tag } from "../models/tag.models.js";
 
 // Create new content
@@ -55,6 +55,47 @@ export const getContent = async (req: Request, res: Response) => {
     res.status(200).json(contents);
   } catch (error) {
     console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+// update a piece of content
+export const updateContent = async (req: Request, res: Response) => {
+  try {
+    const { contentId, title, link, type, tags } = updateContentSchema.parse(
+      req.body
+    );
+    const userId = req.userId;
+    if (!userId) return res.status(401).json({ message: "Unauthorized" });
+
+    const content = await Content.findOne({ _id: contentId, userId });
+    if (!content) {
+      return res
+        .status(404)
+        .json({ message: "Content not found or unauthorized" });
+    }
+
+    // Convert tag titles to IDs (ensure consistency)
+    const tagIds = await Promise.all(
+      tags.map(async (tagTitle: string) => {
+        const existing = await Tag.findOneAndUpdate(
+          { title: tagTitle },
+          {},
+          { upsert: true, new: true, setDefaultsOnInsert: true }
+        );
+        return existing._id;
+      })
+    );
+
+    const updated = await Content.findByIdAndUpdate(
+      contentId,
+      { title, link, type, tags: tagIds },
+      { new: true }
+    );
+
+    res.status(200).json({ message: "Content updated", content: updated });
+  } catch (error: any) {
+    console.error("Error updating content:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 };
