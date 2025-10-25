@@ -1,12 +1,8 @@
 import type { Request, Response, NextFunction } from "express";
 import jwt, { type JwtPayload } from "jsonwebtoken";
 
-interface CustomRequest extends Request {
-  userId?: string;
-}
-
 export const userMiddleware = async (
-  req: CustomRequest,
+  req: Request,
   res: Response,
   next: NextFunction
 ) => {
