@@ -7,6 +7,6 @@ router.post("/signup", signup);
 
 router.post("/signin", signin);
 
-router.post("/logout", signout);
+router.get("/logout", signout);
 
 export const userRouter: Router = router;

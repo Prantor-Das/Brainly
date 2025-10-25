@@ -1,18 +1,24 @@
 import express from "express";
-import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 import { logger } from "./utils/logger.js";
 import { connectDB } from "./utils/db.js";
 import { userRouter } from "./routes/user.routes.js";
-
-dotenv.config();
+import { envKeys } from "./utils/envKeys.js";
 
 const app = express();
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const PORT = process.env.PORT || 3000;
+app.use(
+  cors({
+    origin: envKeys.CLIENT_URL,
+    credentials: true,
+  })
+);
+
+const PORT: number = envKeys.PORT;
 
 app.use("/api/v1/user", userRouter);
 
@@ -21,7 +27,7 @@ app.get("/", (req, res) => {
 });
 
 // Connect to MongoDB
-connectDB(process.env.MONGO_URL as string)
+connectDB(envKeys.MONGO_URL as string)
   .then(() => {
     app.listen(PORT, () => logger.info(`🚀 Server running on port ${PORT}`));
   })

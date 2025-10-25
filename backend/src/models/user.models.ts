@@ -1,6 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { envKeys } from "../utils/envKeys.js";
 
 interface IUser {
   username: string;
@@ -36,10 +37,10 @@ userSchema.methods.isPasswordCorrect = async function (password: string) {
 
 userSchema.methods.generateJWT = function () {
   return jwt.sign(
-    { id: this._id, username: this.username },
-    process.env.JWT_SECRET as string,
+    { id: this._id },
+    envKeys.JWT_SECRET as string,
     { expiresIn: "1h" }
   );
-};
+}; 
 
 export const User = mongoose.model<IUser>("User", userSchema);

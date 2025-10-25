@@ -2,13 +2,8 @@ import type { Request, Response } from "express";
 import { User } from "../models/user.models.js";
 import { userProfileSchema } from "../validations/user.js";
 
-interface MyRequestBody {
-  username: string;
-  password: string;
-}
-
 export const signup = async (
-  req: Request<{}, {}, MyRequestBody>,
+  req: Request,
   res: Response
 ) => {
   const { username, password } = userProfileSchema.parse(req.body);
@@ -29,7 +24,7 @@ export const signup = async (
 };
 
 export const signin = async (
-  req: Request<{}, {}, MyRequestBody>,
+  req: Request,
   res: Response
 ) => {
   const { username, password } = userProfileSchema.parse(req.body);
