@@ -43,7 +43,7 @@ export const shareContent = async (req: Request, res: Response) => {
 
 export const getSharedContent = async (req: Request, res: Response) => {
   try {
-    const { shareLink: hash } = shareLinkSchema.parse(req.params); 
+    const { shareLink: hash } = shareLinkSchema.parse(req.params);
 
     // Validate input
     if (!hash) {
@@ -61,8 +61,10 @@ export const getSharedContent = async (req: Request, res: Response) => {
 
     // Fetch content and user details for the shareable link.
     const [content, user] = await Promise.all([
-      Content.find({ userId: link.userId }),
-      User.findOne({ _id: link.userId }).select("username")
+      Content.find({ userId: link.userId })
+        .select("-embedding -userId")
+        .populate("tags", "title"),
+      User.findOne({ _id: link.userId }).select("username"),
     ]);
 
     if (!user) {
@@ -77,6 +79,8 @@ export const getSharedContent = async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error("Error in getLink:", error);
-    res.status(500).json({ message: "Server error while retrieving link data." });
+    res
+      .status(500)
+      .json({ message: "Server error while retrieving link data." });
   }
 };
