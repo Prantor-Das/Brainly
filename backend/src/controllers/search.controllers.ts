@@ -42,7 +42,7 @@ export const searchContent = async (req: Request, res: Response) => {
 
     // Preserve ranking order
     const ranked = contentIds.map((id) =>
-      contents.find((c) => c._id.toString() === id)
+      contents.find((c) => c._id.toString() === id),
     );
 
     res.status(200).json({

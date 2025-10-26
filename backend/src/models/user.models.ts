@@ -22,7 +22,7 @@ const userSchema = new Schema(
     },
     password: { type: String, required: [true, "Password is required"] },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 userSchema.pre("save", async function (next) {
@@ -36,11 +36,9 @@ userSchema.methods.isPasswordCorrect = async function (password: string) {
 };
 
 userSchema.methods.generateJWT = function () {
-  return jwt.sign(
-    { id: this._id },
-    envKeys.JWT_SECRET as string,
-    { expiresIn: "1h" }
-  );
-}; 
+  return jwt.sign({ id: this._id }, envKeys.JWT_SECRET as string, {
+    expiresIn: "1h",
+  });
+};
 
 export const User = mongoose.model<IUser>("User", userSchema);

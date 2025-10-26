@@ -2,10 +2,7 @@ import type { Request, Response } from "express";
 import { User } from "../models/user.models.js";
 import { userProfileSchema } from "../validations/user.js";
 
-export const signup = async (
-  req: Request,
-  res: Response
-) => {
+export const signup = async (req: Request, res: Response) => {
   const { username, password } = userProfileSchema.parse(req.body);
 
   // const users : z.infer<typeof userProfileSchema> = req.body;
@@ -23,10 +20,7 @@ export const signup = async (
   }
 };
 
-export const signin = async (
-  req: Request,
-  res: Response
-) => {
+export const signin = async (req: Request, res: Response) => {
   const { username, password } = userProfileSchema.parse(req.body);
 
   try {
@@ -51,8 +45,5 @@ export const signin = async (
 };
 
 export const signout = async (req: Request, res: Response) => {
-  res
-    .status(200)
-    .clearCookie("token")
-    .json({ message: "Signout successful" });
+  res.status(200).clearCookie("token").json({ message: "Signout successful" });
 };

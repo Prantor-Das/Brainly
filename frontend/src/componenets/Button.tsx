@@ -16,13 +16,13 @@ const variantStyle = {
 };
 
 const variantSize = {
-  sm: "px-3 py-2",
-  md: "px-4 py-2",
-  lg: "px-5 py-2",
+  sm: "px-3 py-2 text-sm",
+  md: "px-4 py-2 text-md",
+  lg: "px-8 py-4 text-lg",
 };
 
 const defaultStyle =
-  "flex gap-2 rounded-lg text-lg items-center justify-center text-xl";
+  "flex gap-2 m-2 rounded-lg items-center justify-center text-xl";
 
 export const Button = (props: ButtonProps) => {
   return (

@@ -25,10 +25,10 @@ export const addContent = async (req: Request, res: Response) => {
         const tag = await Tag.findOneAndUpdate(
           { title: tagTitle },
           { title: tagTitle },
-          { upsert: true, new: true, setDefaultsOnInsert: true }
+          { upsert: true, new: true, setDefaultsOnInsert: true },
         );
         return tag._id;
-      })
+      }),
     );
 
     // Save content to MongoDB
@@ -86,7 +86,7 @@ export const getContent = async (req: Request, res: Response) => {
 export const updateContent = async (req: Request, res: Response) => {
   try {
     const { contentId, title, link, type, tags } = updateContentSchema.parse(
-      req.body
+      req.body,
     );
     const userId = req.userId;
     if (!userId) return res.status(401).json({ message: "Unauthorized" });
@@ -128,7 +128,7 @@ export const updateContent = async (req: Request, res: Response) => {
     const updated = await Content.findByIdAndUpdate(
       contentId,
       { title, link, type, tags: tagIds, embedding },
-      { new: true }
+      { new: true },
     )
       .select("-embedding")
       .populate("userId", "username")

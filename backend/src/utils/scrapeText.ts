@@ -9,6 +9,6 @@ export async function extractPageText(url: string) {
   // remove unwanted tags
   $("script, style, noscript").remove();
   const text = $("body").text().replace(/\s+/g, " ").trim();
-  
+
   return text.slice(0, 4000); // limit to reasonable length
 }

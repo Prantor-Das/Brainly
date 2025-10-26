@@ -16,5 +16,5 @@ export const pinecone = new Pinecone({
 
 // Create a typed index instance
 export const pineconeIndex = pinecone.index<ContentMetadata>(
-  envKeys.PINECONE_INDEX_NAME
+  envKeys.PINECONE_INDEX_NAME,
 );

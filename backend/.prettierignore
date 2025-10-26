@@ -1,0 +1,12 @@
+package-lock.json
+pnpm-lock.yaml
+.env
+
+# Ignore files
+.DS_Store
+
+# Ignore directories
+dist
+node_modules
+
+tsconfig.json

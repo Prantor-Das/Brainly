@@ -21,13 +21,13 @@ import { randomBytes } from "crypto";
 import { envKeys } from "./envKeys.js";
 
 export function random(len: number) {
-    const options = envKeys.OPTION;
-    const length = options.length;
-    let ans = "";
-    const bytes = randomBytes(len);
+  const options = envKeys.OPTION;
+  const length = options.length;
+  let ans = "";
+  const bytes = randomBytes(len);
 
-    for (let i = 0; i < len; i++) {
-        ans += options[bytes[i] % length];
-    }
-    return ans;
+  for (let i = 0; i < len; i++) {
+    ans += options[bytes[i] % length];
+  }
+  return ans;
 }

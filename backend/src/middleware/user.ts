@@ -4,7 +4,7 @@ import jwt, { type JwtPayload } from "jsonwebtoken";
 export const userMiddleware = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   const token = req.cookies?.token;
   if (!token) {

@@ -18,13 +18,13 @@ app.use(
   cors({
     origin: envKeys.CLIENT_URL,
     credentials: true,
-  })
+  }),
 );
 
 const PORT: number = envKeys.PORT;
 
 app.use("/api/v1/user", userRouter);
-app.use("/api/v1/content", contentRouter); 
+app.use("/api/v1/content", contentRouter);
 app.use("/api/v1/brain", brainRouter);
 app.use("/api/v1/search", searchRouter);
 
