@@ -1,12 +1,22 @@
+# Lock files
 package-lock.json
 pnpm-lock.yaml
-.env
+yarn.lock
 
-# Ignore files
+# Environment files
+.env
+.env.*
+
+# System files
 .DS_Store
 
-# Ignore directories
-dist
-node_modules
+# Build and dependencies
+dist/
+node_modules/
 
+# TypeScript config (optional — Prettier can handle JSON fine)
 tsconfig.json
+
+# Optional: Ignore coverage or output folders
+coverage/
+out/

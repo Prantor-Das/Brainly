@@ -1,0 +1,34 @@
+# Lock files
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# Environment files
+.env
+.env.*
+
+# System files
+.DS_Store
+
+# Build output
+dist/
+node_modules/
+
+# TypeScript config (optional — Prettier supports JSON)
+tsconfig.json
+tsconfig.node.json
+tsconfig.app.json
+
+# Vite config (optional, if you don’t want Prettier to format it)
+vite.config.* 
+
+# Test and coverage outputs
+coverage/
+*.log
+
+# Editor / tooling files
+.idea/
+.vscode/
+
+# Optional: temporary or generated assets
+*.local
