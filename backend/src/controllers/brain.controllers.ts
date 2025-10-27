@@ -4,6 +4,7 @@ import { random } from "../utils/random.js";
 import { Content } from "../models/content.models.js";
 import { User } from "../models/user.models.js";
 import { shareLinkSchema, shareSchema } from "../validations/brain.js";
+import { envKeys } from "../utils/envKeys.js";
 
 export const shareContent = async (req: Request, res: Response) => {
   try {
@@ -13,17 +14,17 @@ export const shareContent = async (req: Request, res: Response) => {
       const existingLink = await Link.findOne({ userId: req.userId });
 
       if (existingLink) {
-        res.json({ hash: existingLink.hash }); // Send existing hash if found.
+        res.status(200).json(`${envKeys.CLIENT_URL}/share/${existingLink.hash}`); // Send existing hash if found.
         return;
       }
 
       // Generate a new hash for the shareable link.
-      const hash = random(10);
+      const hash = random(18);
 
       // Save the new link in the database.
       await Link.create({ userId: req.userId, hash });
 
-      res.json({ hash }); // Send new hash in the response.
+      res.status(200).json(`${envKeys.CLIENT_URL}/share/${hash}`); // Send new hash in the response.
     } else {
       // Remove the shareable link if `share` is false.
       const deleted = await Link.deleteOne({ userId: req.userId });
